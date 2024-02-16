@@ -10,7 +10,7 @@ void ecrire1D (int T[], int taille);
 int RechN (int T[], int taille, int element);
 // Recherche d'un element dans un tableau (1D)
 
-void intersectionTab (int T1[], int taille1, int T2[], int taille2, int T[], int *taille);
+void intersectionTab (int T1[], int taille1, int T2[], int taille2, int T[], int *ptaille);
 // Renvoie un tableau T qui contient les elements communs de T1 et T2
 
 int main()
