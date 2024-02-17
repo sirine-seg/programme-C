@@ -35,7 +35,7 @@ int main ()
         }
     }
     
-    // Output
+    // Output //
     for (int i = 0; i < nbMots; i++) {
         printf("Mot : %s, Ligne : %d, Position : %d\n", enrgInfoMot[i].mot, enrgInfoMot[i].ligne_mot, enrgInfoMot[i].position_mot);
     }
