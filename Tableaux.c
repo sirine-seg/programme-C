@@ -2,16 +2,34 @@
 #include <stdlib.h>
 
 void lect1D (int T[], int taille);
-// Lecture des elements d'un tableau a une dimension
+// Read the elements of an array T
 
 void ecrire1D (int T[], int taille);
-// Ecriture des elements d'un tableau a une dimension
+// Write an array T
 
 int RechN (int T[], int taille, int element);
-// Recherche d'un element dans un tableau (1D)
+// Search for an element in an array T, return the index if the element is found, else return -1
 
 void intersectionTab (int T1[], int taille1, int T2[], int taille2, int T[], int *ptaille);
-// Renvoie un tableau T qui contient les elements communs de T1 et T2
+// Returm an array T that contains the commun elements of T1 and T2
+
+int sumTab (int T[], int taille);
+// Sum the elements of T
+
+void insertEleTab (int T[], int *taille, int element, int pos);
+// Insert an element in T at the position (the index) pos
+
+void deleteEleTab (int T[], int *taille, int pos);
+// Delete an element of T at the position (the index) pos
+
+int freqEleTab (int T[], int taille, int element);
+// Return the frequence of appearance of an element in an array
+
+void selectionSort (int T[], int taille);
+// Sort T (assending order)
+
+void mergeSort (int T1[], int taille1, int T2[], int taille2, int T[], int *taille);
+// From two sorted arrays we creat a sorted array containing the elemnts of T1 and T2 (without sorting)
 
 int main()
 {
@@ -22,31 +40,13 @@ int main()
     int *ptailleT = &tailleT;
     int N; // l'element a trouve
     int index; // l'index de l'element a trouve
-    /* Lecture et ecriture du  tableau */
-    printf("Tableau 1 : \n");
+
     lect1D(T1,tailleT1);
-    printf("\n");
-    ecrire1D(T1,tailleT1);
-    printf("\nTableau 2 : \n");
     lect1D(T2,tailleT2);
-    printf("\n");
-    ecrire1D(T2,tailleT2);
-    printf("\n");
-    /* Element a trouve */
-    printf("N = ");
-    scanf("%d", &N);
-    index = RechN(T1,tailleT1,N);
-    if (index != -1){
-        printf("L'element %d a ete trouve a l'index %d.\n", N, index);
-    }
-    else {
-        printf("L'element %d n'a pas ete trouve dans le tableau.\n", N);
-    }
-    /* intersection */
-    printf("\n================\n");
-    intersectionTab(T1,tailleT1,T2,tailleT2,T,ptailleT);
-    printf("taille = %d\n", *ptailleT);
-    ecrire1D(T,*ptailleT);
+    mergeSort(T1,tailleT1,T2,tailleT2,T,ptailleT);
+    ecrire1D(T,tailleT);
+    printf("%d\n",tailleT);
+
     /* Fin */
     return 0;
 }
@@ -101,4 +101,84 @@ void intersectionTab (int T1[], int taille1, int T2[], int taille2, int T[], int
         }
     }
     *ptaille = tailleTmp;
+}
+
+int sumTab (int T[], int taille) 
+{
+    int i, sum=0;
+    for (i = 0; i < taille; i++) {
+        sum = sum + T[i];
+    }
+    return sum;
+}
+
+void insertEleTab (int T[], int *taille, int element, int pos)
+{
+    int i;
+    for (i = *taille; i >= pos; i--) {
+        T[i+1] = T[i];
+    }
+    *taille += 1;
+    T[pos] = element;
+}
+
+void deleteEleTab (int T[], int *taille, int pos)
+{
+    int i;
+    *taille -= 1;
+    for (i = pos; i < *taille; i++) {
+        T[i] = T[i+1];
+    }
+}
+
+int freqEleTab (int T[], int taille, int element)
+{
+    int i, cpt=0;
+    for (i = 0; i < taille; i++) {
+        if (T[i] == element) {
+            cpt += 1;
+        }
+    }
+    return cpt;
+}
+
+void selectionSort (int T[], int taille)
+{
+    int i ,j, tmp;
+    for (i = 0; i < (taille-1); i++) {
+        for (j = (i+1); j < taille; j++) {
+            if (T[i] > T[j]) {
+                tmp = T[i];
+                T[i] = T[j];
+                T[j] = tmp; 
+            }
+        }
+    }
+}
+
+void mergeSort (int T1[], int taille1, int T2[], int taille2, int T[], int *taille)
+{
+    *taille = taille1 + taille2;
+    int i=0, j=0, k=0;
+    while (i < taille1 && j < taille2) {
+        if (T1[i] <= T2[j]) {
+            T[k] = T1[i];
+            i++;
+        }
+        else {
+            T[k] = T2[j];
+            j++;
+        }
+        k++;
+    }
+    while (i < taille1) {
+        T[k] = T1[i];
+        i++;
+        k++;
+    }
+    while (j < taille2) {
+        T[k] = T2[j];
+        j++;
+        k++;
+    }
 }
