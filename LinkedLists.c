@@ -21,6 +21,16 @@ void ass_adr (struct node *ptr1, struct node *ptr2)
     ptr1->adr = ptr2;
 }
 
+struct node* next (struct node *ptr)
+{
+    return ptr->adr;
+}
+
+int value (struct node *ptr) 
+{
+    return ptr->val;
+}
+
 void createList (struct node *head, int N) 
 {
     struct node *p, *q;
@@ -29,7 +39,7 @@ void createList (struct node *head, int N)
     scanf("%d\n", &value);
     ass_val(p,value);
     head = p;
-    for (int i=1; i<N; i++) {
+    for (int i=1; i<(N-1); i++) {
         allocate(q);
         scanf("%d\n", &value);
         ass_val(q,value);
