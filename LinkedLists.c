@@ -1,52 +1,69 @@
 #include <stdio.h>
 #include <stdlib.h> // To use malloc
 
-struct node {
+struct cell {
     int val;
-    struct node *adr;
+    struct cell *adr;
 };
 
-void allocate (struct node *ptr) 
+typedef struct cell *ptr;
+
+void allocate (ptr *p) 
 {
-    ptr = (struct node *)malloc(sizeof(struct node));
+    *p = malloc(sizeof(struct cell));
 }
 
-void ass_val (struct node *ptr, int value) 
+void ass_val (ptr p, int value) 
 {
-    ptr->val = value;
+    p->val = value;
 }
 
-void ass_adr (struct node *ptr1, struct node *ptr2) 
+void ass_adr (ptr p, ptr q) 
 {
-    ptr1->adr = ptr2;
+    p->adr = q;
 }
 
-struct node* next (struct node *ptr)
+ptr next (ptr p)
 {
-    return ptr->adr;
+    return p->adr;
 }
 
-int value (struct node *ptr) 
+int value (ptr p) 
 {
-    return ptr->val;
+    return p->val;
 }
 
-void createList (struct node *head, int N) 
+void createList (ptr *head, int N) 
 {
-    struct node *p, *q;
-    int value;
-    allocate(p);
-    scanf("%d\n", &value);
-    ass_val(p,value);
-    head = p;
-    for (int i=1; i<(N-1); i++) {
-        allocate(q);
-        scanf("%d\n", &value);
-        ass_val(q,value);
-        ass_adr(p,q);
-        p = p->adr;
+    ptr p = NULL, q = NULL;
+    int v;
+    if (N == 0) {
+        head = NULL;
     }
-    ass_adr(p,NULL);
+    else {
+        allocate(&p);
+        printf ("Cell 1 : ");
+        scanf("%d", &v);
+        ass_val(p,v);
+        *head = p;
+        for (int i=2; i<=N; i++) {
+            allocate(&q);
+            printf ("cell %d : ", i);
+            scanf("%d", &v);
+            ass_val(q,v);
+            ass_adr(p,q);
+            p = q;
+        }
+        ass_adr(p,NULL);
+    }
+}
+
+void displayList (ptr p, int N)
+{
+    for (int i=1; i<=N; i++) {
+        printf ("cell %d : %d\n", i, value(p));
+        p = next(p);
+    }
 }
 
 /*
@@ -68,17 +85,13 @@ void countNodes (struct node *head) {
 
 int main ()
 { 
-    struct node *H = NULL;
-    struct node *p;
-    struct node *q;
-    allocate(p);
-    H = p;
-    createList(H,3);
+    ptr head;
+    ptr p;
+    int N;
+    printf ("Enter the number of cells : ");
+    scanf ("%d", &N);
+    createList(&p,N);
     printf ("\n");
-    p = H;
-    while (p!=NULL){
-        printf("%d",p->val);
-        p = p->adr;
-    }
+    displayList(p,N);
     return 0;
 }
