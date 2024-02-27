@@ -58,40 +58,40 @@ void createList (ptr *head, int N)
     }
 }
 
-void displayList (ptr p, int N)
+void displayList (ptr head, int N)
 {
+    ptr p=head;
     for (int i=1; i<=N; i++) {
         printf ("cell %d : %d\n", i, value(p));
         p = next(p);
     }
 }
 
-/*
-void countNodes (struct node *head) {
-    int cpt = 0;
-    if (head == NULL) {
-        printf ("Linked List is empty");
+int lengthList (ptr head)
+{
+    int cpt=0;
+    ptr p=head;
+    while (p != NULL) {
+        cpt++;
+        p = next(p);
     }
-    else {
-        struct node *ptr = NULL;
-        ptr = head;
-        while (ptr != NULL) {
-            cpt++;
-            ptr = ptr->adr;
-        }
-        printf ("%d", count);
-    }
-}*/
+    return cpt;
+}
 
 int main ()
 { 
     ptr head;
     ptr p;
-    int N;
+    int N, l;
     printf ("Enter the number of cells : ");
     scanf ("%d", &N);
     createList(&p,N);
     printf ("\n");
+    
+    l = lengthList(p);
+    printf ("%d", l);
+    printf ("\n");
+
     displayList(p,N);
     return 0;
 }
