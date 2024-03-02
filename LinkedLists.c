@@ -8,6 +8,35 @@ struct cell {
 
 typedef struct cell *ptr;
 
+// Abstract Machine
+void allocate (ptr *p);
+void ass_val (ptr p, int value);
+void ass_adr (ptr p, ptr q); 
+ptr next (ptr p);
+int value (ptr p);
+// Modules
+void createList (ptr *head, int N);
+void displayList (ptr head, int N);
+int lengthList (ptr head);
+
+int main ()
+{ 
+    ptr head;
+    ptr p;
+    int N, l;
+    printf ("Enter the number of cells : ");
+    scanf ("%d", &N);
+    createList(&p,N);
+    printf ("\n");
+    
+    l = lengthList(p);
+    printf ("%d", l);
+    printf ("\n");
+
+    displayList(p,N);
+    return 0;
+}
+
 void allocate (ptr *p) 
 {
     *p = malloc(sizeof(struct cell));
@@ -76,22 +105,4 @@ int lengthList (ptr head)
         p = next(p);
     }
     return cpt;
-}
-
-int main ()
-{ 
-    ptr head;
-    ptr p;
-    int N, l;
-    printf ("Enter the number of cells : ");
-    scanf ("%d", &N);
-    createList(&p,N);
-    printf ("\n");
-    
-    l = lengthList(p);
-    printf ("%d", l);
-    printf ("\n");
-
-    displayList(p,N);
-    return 0;
 }
