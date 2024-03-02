@@ -18,15 +18,20 @@ int value (ptr p);
 void createList (ptr *head, int N);
 void displayList (ptr head, int N);
 int lengthList (ptr head);
+int freq (ptr head, int N);
+int greatestFreq (ptr head);
+ptr accessVal (ptr head, int V);
+void accessPos (ptr head, int pos, ptr *p, ptr *q); // p is the adr of pos, q is the adr of pos-1
+void deletePos (ptr *head, int pos);
 
 int main ()
 { 
     ptr head;
-    ptr p;
-    int N, l;
+    ptr p, q, r;
+    int N, l, val;
     printf ("Enter the number of cells : ");
     scanf ("%d", &N);
-    createList(&p,N);
+    createList (&p,N);
     printf ("\n");
     
     l = lengthList(p);
@@ -34,6 +39,18 @@ int main ()
     printf ("\n");
 
     displayList(p,N);
+
+    printf ("position : ");
+    scanf ("%d", &val);
+    deletePos(&p,val);
+    N = lengthList(p);
+    displayList(p,N);
+    //accessPos(p,val,&q,&r);
+    //printf ("%p\n%p", q, r);
+    //printf ("greatest occurence : %d", greatestFreq(p));
+
+
+    printf ("\n");
     return 0;
 }
 
@@ -91,7 +108,7 @@ void displayList (ptr head, int N)
 {
     ptr p=head;
     for (int i=1; i<=N; i++) {
-        printf ("cell %d : %d\n", i, value(p));
+        printf ("cell %d : %d\tadr : %p\n", i, value(p), p);
         p = next(p);
     }
 }
@@ -105,4 +122,67 @@ int lengthList (ptr head)
         p = next(p);
     }
     return cpt;
+}
+
+int freq (ptr head, int N)
+{
+    int cpt=0;
+    ptr p=head;
+    while (p!=NULL) {
+        if (value(p)==N) {
+            cpt++;
+        }
+        p = next(p);
+    }
+    return cpt;
+}
+
+int greatestFreq (ptr head)
+{
+    ptr p=head;
+    int max=value(head);
+    while (next(p)!=NULL) {
+        p = next(p);
+        if (freq(head,value(p))>freq(head,max)) {
+            max = value(p);
+        }
+    }
+    return max;
+}
+
+ptr accessVal (ptr head, int V)
+{
+    ptr p=head;
+    while (p!=NULL && value(p)!=V) {
+        p = next(p);
+    }
+    return p;
+}
+
+void accessPos (ptr head, int pos, ptr *p, ptr *q)
+{
+    int i=0;
+    *p = head;
+    *q = NULL;
+    while (p!=NULL && i<pos) {
+        *q = *p;
+        *p = next(*p);
+        i++;
+    }
+}
+
+void deletePos (ptr *head, int pos)
+{
+    ptr p=*head;
+    ptr q=NULL;
+    accessPos(*head,pos,&p,&q);
+    if (p != NULL) {
+        if (q != NULL) {
+            ass_adr (q,next(p));
+        }
+        else {
+            *head = next(*head);
+        }
+        free(p);
+    }
 }
