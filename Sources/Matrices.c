@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "../Headers/Matrices.h"
 
 //typedef int matrice[Nl][Nc];
 
@@ -57,41 +58,4 @@ void mult_matrix (int NblA, int NbcA, int A[NblA][NbcA], int NblB, int NbcB, int
             }
         }
    // }
-}
-
-int main () 
-{
-    int *N_ligne, *N_colone;
-    int N_ligneA, N_coloneA;
-    int N_ligneB, N_coloneB;
-    printf ("Number of lines de A : ");
-    scanf ("%d", &N_ligneA);
-    printf ("Number of colones de A : ");
-    scanf ("%d", &N_coloneA);
-
-    printf ("Number of lines de B : ");
-    scanf ("%d", &N_ligneB);
-    printf ("Number of colones de B : ");
-    scanf ("%d", &N_coloneB);
-
-    int A[N_ligneA][N_coloneA];
-    int B[N_ligneB][N_coloneB];
-    N_ligne = &N_ligneA;
-    N_colone = &N_coloneB;
-    int C[*N_ligne][*N_colone];
-
-    printf ("Matrix A : ");
-    lect2D (N_ligneA,N_coloneA,A);
-    printf ("Matrix B : ");
-    lect2D (N_ligneB,N_coloneB,B);
-    //printf ("The matrix is : \n");
-    //ecrire2D (N_ligne,N_colone,A);
-
-    //printf ("Pascal triangle : \n");
-    //pascal_triangle(N_ligne);
-    //ecrire2D(N_ligne,N_ligne,A);
-    mult_matrix(N_ligneA,N_coloneA,A,N_ligneB,N_coloneB,B,N_ligne,N_colone,C);
-    ecrire2D (*N_ligne,*N_colone,C);
-
-    return 0;
 }
