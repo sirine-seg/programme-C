@@ -12,19 +12,14 @@ int main ()
     ptr head;
     ptr p, q, r;
     int N, l, val;
-    int T[5];
     printf ("Enter the number of cells : ");
     scanf ("%d", &N);
     createList (&p,N);
-    printf ("\n");
-    createList (&q,N);
+    insertPos(&p,1,2);
 
     printf ("\n");
-    mergeList(p,q,&r);
-    l = lengthList(r);
-    displayList(r,l);
+    displayList(p,lengthList(p));
 
-    lect1D(T,5);
     printf ("\n");
     return 0;
 }

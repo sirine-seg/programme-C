@@ -168,3 +168,18 @@ void mergeList (ptr H1, ptr H2, ptr *H)
         ass_adr(t,q);
     }
 }
+
+void insertPos (ptr *head, int V, int pos)
+{
+    ptr p, q, t;
+    accessPos(*head,pos,&p,&q);
+    allocate(&t);
+    ass_val(t,V);
+    ass_adr(t,p);
+    if (q != NULL) {
+        ass_adr(q,t);
+    }
+    else {
+        *head = t;
+    }
+}

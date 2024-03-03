@@ -24,5 +24,6 @@ ptr accessVal (ptr head, int V);
 void accessPos (ptr head, int pos, ptr *p, ptr *q); // p is the adr of pos, q is the adr of pos-1
 void deletePos (ptr *head, int pos);
 void mergeList (ptr H1, ptr H2, ptr *H);
+void insertPos (ptr *head, int V, int pos);
 
 #endif
