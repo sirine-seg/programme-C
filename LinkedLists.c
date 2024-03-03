@@ -23,6 +23,7 @@ int greatestFreq (ptr head);
 ptr accessVal (ptr head, int V);
 void accessPos (ptr head, int pos, ptr *p, ptr *q); // p is the adr of pos, q is the adr of pos-1
 void deletePos (ptr *head, int pos);
+void mergeList (ptr H1, ptr H2, ptr *H);
 
 int main ()
 { 
@@ -33,22 +34,12 @@ int main ()
     scanf ("%d", &N);
     createList (&p,N);
     printf ("\n");
-    
-    l = lengthList(p);
-    printf ("%d", l);
+    createList (&q,N);
+
     printf ("\n");
-
-    displayList(p,N);
-
-    printf ("position : ");
-    scanf ("%d", &val);
-    deletePos(&p,val);
-    N = lengthList(p);
-    displayList(p,N);
-    //accessPos(p,val,&q,&r);
-    //printf ("%p\n%p", q, r);
-    //printf ("greatest occurence : %d", greatestFreq(p));
-
+    mergeList(p,q,&r);
+    l = lengthList(r);
+    displayList(r,l);
 
     printf ("\n");
     return 0;
@@ -184,5 +175,39 @@ void deletePos (ptr *head, int pos)
             *head = next(*head);
         }
         free(p);
+    }
+}
+
+void mergeList (ptr H1, ptr H2, ptr *H)
+{
+    ptr p=H1;
+    ptr q=H2;
+    ptr t;
+    if (value(p)<value(q)) {
+        *H = H1;
+        p = next(p);
+    }
+    else {
+        *H = H2;
+        q = next(q);
+    }
+    t = *H;
+    while ((p!=NULL) && (q!=NULL)) {
+        if (value(p)<value(q)) {
+            ass_adr(t,p);
+            t = p;
+            p = next(p);
+        }
+        else {
+            ass_adr(t,q);
+            t = q;
+            q = next(q);
+        }
+    }
+    if (p!=NULL) {
+        ass_adr(t,p);
+    }
+    else {
+        ass_adr(t,q);
     }
 }
