@@ -21,7 +21,10 @@ int lengthList (ptr head);
 int freq (ptr head, int N);
 int greatestFreq (ptr head);
 ptr accessVal (ptr head, int V);
-void accessPos (ptr head, int pos, ptr *p, ptr *q); // p is the adr of pos, q is the adr of pos-1
+void accessPVal (ptr head, int V, ptr *p, ptr *q);
+ptr accessPos (ptr head, int pos);
+void accessPPos (ptr head, int pos, ptr *p, ptr *q); // p is the adr of pos, q is the adr of pos-1
+void deleteVal (ptr *head, int val);
 void deletePos (ptr *head, int pos);
 void mergeList (ptr H1, ptr H2, ptr *H);
 void insertPos (ptr *head, int V, int pos);

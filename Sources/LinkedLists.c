@@ -107,7 +107,28 @@ ptr accessVal (ptr head, int V)
     return p;
 }
 
-void accessPos (ptr head, int pos, ptr *p, ptr *q)
+void accessPVal (ptr head, int V, ptr *p, ptr *q)
+{
+    *p = head;
+    *q = NULL;
+    while (p!=NULL && value(*p)!=V) {
+        *q = *p;
+        *p = next(*p);
+    }
+}
+
+ptr accessPos (ptr head, int pos)
+{
+    ptr p=head;
+    int i=0;
+    while (p!=NULL && i<pos) {
+        p = next(p);
+        i++;
+    }
+    return p;
+}
+
+void accessPPos (ptr head, int pos, ptr *p, ptr *q)
 {
     int i=0;
     *p = head;
@@ -119,11 +140,27 @@ void accessPos (ptr head, int pos, ptr *p, ptr *q)
     }
 }
 
+void deleteVal (ptr *head, int V)
+{
+    ptr p=*head;
+    ptr q=NULL;
+    accessPVal(*head,V,&p,&q);
+    if (p != NULL) {
+        if (q != NULL) {
+            ass_adr (q,next(p));
+        }
+        else {
+            *head = next(*head);
+        }
+        free(p);
+    }
+}
+
 void deletePos (ptr *head, int pos)
 {
     ptr p=*head;
     ptr q=NULL;
-    accessPos(*head,pos,&p,&q);
+    accessPPos(*head,pos,&p,&q);
     if (p != NULL) {
         if (q != NULL) {
             ass_adr (q,next(p));
@@ -172,7 +209,7 @@ void mergeList (ptr H1, ptr H2, ptr *H)
 void insertPos (ptr *head, int V, int pos)
 {
     ptr p, q, t;
-    accessPos(*head,pos,&p,&q);
+    accessPPos(*head,pos,&p,&q);
     allocate(&t);
     ass_val(t,V);
     ass_adr(t,p);
