@@ -111,7 +111,7 @@ void accessPVal (ptr head, int V, ptr *p, ptr *q)
 {
     *p = head;
     *q = NULL;
-    while (p!=NULL && value(*p)!=V) {
+    while (*p!=NULL && value(*p)!=V) {
         *q = *p;
         *p = next(*p);
     }
@@ -133,7 +133,7 @@ void accessPPos (ptr head, int pos, ptr *p, ptr *q)
     int i=0;
     *p = head;
     *q = NULL;
-    while (p!=NULL && i<pos) {
+    while (*p!=NULL && i<pos) {
         *q = *p;
         *p = next(*p);
         i++;
